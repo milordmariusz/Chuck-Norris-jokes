@@ -1,5 +1,6 @@
 import 'package:chuck_norris_jokes_api/home/home.dart';
 import 'package:chuck_norris_jokes_api/services/chuck_joke_service.dart';
+import 'package:chuck_norris_jokes_api/services/connectivity_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -22,6 +23,9 @@ class MyApp extends StatelessWidget {
           RepositoryProvider(
             create: (context) => ChuckJokeService(),
           ),
+          RepositoryProvider(
+            create: (context) => ConnectivityService(),
+          )
         ], child: HomePage()));
   }
 }

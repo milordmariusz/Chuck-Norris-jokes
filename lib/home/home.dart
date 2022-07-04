@@ -1,5 +1,6 @@
 import 'package:chuck_norris_jokes_api/home/bloc/home_bloc.dart';
 import 'package:chuck_norris_jokes_api/services/chuck_joke_service.dart';
+import 'package:chuck_norris_jokes_api/services/connectivity_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,9 +11,10 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-        create: (context) =>
-            HomeBloc(RepositoryProvider.of<ChuckJokeService>(context))
-              ..add(LoadApiEvent()),
+        create: (context) => HomeBloc(
+              RepositoryProvider.of<ChuckJokeService>(context),
+              RepositoryProvider.of<ConnectivityService>(context),
+            )..add(LoadApiEvent()),
         child: Scaffold(
           appBar: AppBar(
             title: Text("Chuck Norris Jokes"),
@@ -35,6 +37,9 @@ class HomePage extends StatelessWidget {
                         child: Text("Next one"))
                   ],
                 );
+              }
+              if(state is HomeNoInternetState){
+                return Text("no internet");
               }
               return Container();
             },

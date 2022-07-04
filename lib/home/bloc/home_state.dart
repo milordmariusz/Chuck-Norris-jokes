@@ -18,3 +18,8 @@ class HomeLoadedState extends HomeState{
   @override
   List<Object?> get props => [id,joke];
 }
+
+class HomeNoInternetState extends HomeState{
+  @override
+  List<Object?> get props => [];
+}
