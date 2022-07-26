@@ -15,16 +15,18 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final ChuckJokeService _chuckJokeService;
   final ConnectivityService _connectivityService;
 
-  HomeBloc(this._chuckJokeService, this._connectivityService) : super(HomeLoadingState()) {
+  HomeBloc(this._chuckJokeService, this._connectivityService) : super(HomeTitleState()) {
     _connectivityService.connectivityStream.stream.listen((event) {
       if(event == ConnectivityResult.none) {
-        print("internet: no");
         add(NoInternetEvent());
       }
       else{
-        print("internet: yes");
-        add(LoadApiEvent());
+        add(HomeTitleEvent());
       }
+    });
+
+    on<HomeTitleEvent>((event, emit){
+      emit(HomeTitleState());
     });
 
     on<LoadApiEvent>((event, emit) async {

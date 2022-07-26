@@ -2,7 +2,6 @@ import 'package:chuck_norris_jokes_api/home/bloc/home_bloc.dart';
 import 'package:chuck_norris_jokes_api/services/chuck_joke_service.dart';
 import 'package:chuck_norris_jokes_api/services/connectivity_service.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class HomePage extends StatelessWidget {
@@ -14,13 +13,27 @@ class HomePage extends StatelessWidget {
         create: (context) => HomeBloc(
               RepositoryProvider.of<ChuckJokeService>(context),
               RepositoryProvider.of<ConnectivityService>(context),
-            )..add(LoadApiEvent()),
+            ),
         child: Scaffold(
-          appBar: AppBar(
-            title: Text("Chuck Norris Jokes"),
-          ),
           body: BlocBuilder<HomeBloc, HomeState>(
             builder: (context, state) {
+              if (state is HomeTitleState) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text("Chuck Norris jokes"),
+                      SizedBox(
+                        height: 20,
+                      ),
+                      ElevatedButton(
+                          onPressed: () => BlocProvider.of<HomeBloc>(context)
+                              .add(LoadApiEvent()),
+                          child: Text("Load joke"))
+                    ],
+                  ),
+                );
+              }
               if (state is HomeLoadingState) {
                 return Center(
                   child: CircularProgressIndicator(),
@@ -34,11 +47,15 @@ class HomePage extends StatelessWidget {
                     ElevatedButton(
                         onPressed: () => BlocProvider.of<HomeBloc>(context)
                             .add(LoadApiEvent()),
-                        child: Text("Next one"))
+                        child: Text("Next one")),
+                    ElevatedButton(
+                        onPressed: () => BlocProvider.of<HomeBloc>(context)
+                            .add(HomeTitleEvent()),
+                        child: Text("Return"))
                   ],
                 );
               }
-              if(state is HomeNoInternetState){
+              if (state is HomeNoInternetState) {
                 return Text("no internet");
               }
               return Container();
