@@ -1,3 +1,4 @@
+import 'package:animated_background/animated_background.dart';
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:chuck_norris_jokes_api/home/bloc/home_bloc.dart';
 import 'package:chuck_norris_jokes_api/home/home_colors.dart';
@@ -21,31 +22,7 @@ class HomePage extends StatelessWidget {
           body: BlocBuilder<HomeBloc, HomeState>(
             builder: (context, state) {
               if (state is HomeTitleState) {
-                return Container(
-                  decoration:
-                      const BoxDecoration(color: HomeColors.backgroundColor),
-                  child: Center(
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: const [
-                        TitleScreenText(
-                          content: 'Chuck Norris',
-                          size: 50.0,
-                        ),
-                        TitleScreenText(
-                          content: 'jokes',
-                          size: 50.0,
-                        ),
-                        SizedBox(
-                          height: 50,
-                        ),
-                        HomeButton(
-                          content: 'Start',
-                        )
-                      ],
-                    ),
-                  ),
-                );
+                return HomeTitlePage();
               }
               if (state is HomeLoadingState) {
                 return Container(
@@ -89,6 +66,69 @@ class HomePage extends StatelessWidget {
   }
 }
 
+class HomeTitlePage extends StatefulWidget {
+  const HomeTitlePage({
+    Key? key,
+  }) : super(key: key);
+
+  @override
+  State<HomeTitlePage> createState() => _HomeTitlePageState();
+}
+
+class _HomeTitlePageState extends State<HomeTitlePage> with TickerProviderStateMixin{
+  ParticleOptions particles = ParticleOptions(
+    image: Image.asset('assets/cowboy_hat.png'),
+    baseColor: HomeColors.brownColor,
+    spawnOpacity: 0.0,
+    opacityChangeRate: 0.25,
+    minOpacity: 0.1,
+    maxOpacity: 0.4,
+    particleCount: 30,
+    spawnMaxRadius: 15.0,
+    spawnMaxSpeed: 70.0,
+    spawnMinSpeed: 30,
+    spawnMinRadius: 7.0,
+  );
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      color: HomeColors.backgroundColor,
+      child: AnimatedBackground(
+        behaviour: RandomParticleBehaviour(options: particles),
+        vsync: this,
+        child: Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Image.asset(
+                  'assets/chuck.png',
+                  height: MediaQuery.of(context).size.height * 0.4,
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                const TitleScreenText(
+                  content: 'Chuck Norris',
+                  size: 50.0,
+                ),
+                const TitleScreenText(
+                  content: 'jokes',
+                  size: 50.0,
+                ),
+                const SizedBox(
+                  height: 50,
+                ),
+                const HomeButton(
+                  content: 'Start',
+                )
+              ],
+            ),
+          ),
+      ),
+    );
+  }
+}
+
 class HomeButton extends StatelessWidget {
   const HomeButton({
     Key? key,
@@ -103,7 +143,8 @@ class HomeButton extends StatelessWidget {
       child: ElevatedButton(
         style: ButtonStyle(
           padding: MaterialStateProperty.all(const EdgeInsets.all(20)),
-          minimumSize: MaterialStateProperty.all(Size(MediaQuery.of(context).size.width * 0.33, 40)),
+          minimumSize: MaterialStateProperty.all(
+              Size(MediaQuery.of(context).size.width * 0.33, 40)),
           side: MaterialStateProperty.all(
             const BorderSide(
               color: HomeColors.textWhiteColor,
@@ -115,7 +156,8 @@ class HomeButton extends StatelessWidget {
               borderRadius: BorderRadius.circular(30),
             ),
           ),
-          backgroundColor: MaterialStateProperty.all(HomeColors.backgroundColor),
+          backgroundColor:
+              MaterialStateProperty.all(HomeColors.backgroundColor),
           overlayColor: MaterialStateProperty.all(HomeColors.accentColor),
         ),
         onPressed: () => BlocProvider.of<HomeBloc>(context).add(LoadApiEvent()),
