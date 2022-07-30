@@ -13,8 +13,15 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
   final ChuckJokeService _chuckJokeService;
   StreamSubscription? subscription;
 
-  HomeBloc(this._chuckJokeService)
-      : super(HomeLoadingState()) {
+  HomeBloc(this._chuckJokeService) : super(HomeLoadingState()) {
+    void checkConnectivity() async {
+      var connectivityResult = await (Connectivity().checkConnectivity());
+      if (connectivityResult == ConnectivityResult.none) {
+        add(NoInternetEvent());
+      }
+    }
+
+    checkConnectivity();
 
     subscription = Connectivity()
         .onConnectivityChanged
