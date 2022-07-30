@@ -4,10 +4,6 @@ abstract class HomeState extends Equatable {
   const HomeState();
 }
 
-class HomeTitleState extends HomeState{
-  @override
-  List<Object?> get props => [];
-}
 
 class HomeLoadingState extends HomeState {
   @override
@@ -18,7 +14,7 @@ class HomeLoadedState extends HomeState{
   final int id;
   final String joke;
 
-  HomeLoadedState(this.id, this.joke);
+  const HomeLoadedState(this.id, this.joke);
 
   @override
   List<Object?> get props => [id,joke];

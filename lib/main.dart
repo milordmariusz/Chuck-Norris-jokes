@@ -1,6 +1,5 @@
-import 'package:chuck_norris_jokes_api/home/home.dart';
-import 'package:chuck_norris_jokes_api/services/chuck_joke_service.dart';
-import 'package:chuck_norris_jokes_api/services/connectivity_service.dart';
+import 'package:chuck_norris_jokes_api/title_screen/bloc/title_screen_bloc.dart';
+import 'package:chuck_norris_jokes_api/title_screen/title_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -20,13 +19,8 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
         ),
         debugShowCheckedModeBanner: false,
-        home: MultiRepositoryProvider(providers: [
-          RepositoryProvider(
-            create: (context) => ChuckJokeService(),
-          ),
-          RepositoryProvider(
-            create: (context) => ConnectivityService(),
-          )
-        ], child: HomePage()));
+        home: BlocProvider(
+        create: (BuildContext context) => TitleScreenBloc(),
+        child: TitleScreenPage()));
   }
 }
