@@ -1,8 +1,10 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:chuck_norris_jokes_api/home/bloc/home_bloc.dart';
 import 'package:chuck_norris_jokes_api/home/home_colors.dart';
 import 'package:chuck_norris_jokes_api/services/chuck_joke_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -27,8 +29,20 @@ class HomePage extends StatelessWidget {
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    Text(state.joke),
-                    Text(state.id.toString()),
+                    Container(
+                      height: MediaQuery.of(context).size.height * 0.3,
+                      child: AutoSizeText(
+                        state.joke.replaceAll("&quot;", "\""),
+                        textAlign: TextAlign.center,
+                        style: GoogleFonts.poppins(
+                          textStyle: TextStyle(
+                            color: HomeColors.textWhiteColor,
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                    ),
                     ElevatedButton(
                       onPressed: () => BlocProvider.of<HomeBloc>(context).add(
                         LoadApiEvent(),
