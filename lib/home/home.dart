@@ -6,6 +6,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+import '../title_screen/title_screen.dart';
+
 class HomePage extends StatelessWidget {
   const HomePage({Key? key}) : super(key: key);
 
@@ -30,29 +32,90 @@ class HomePage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Container(
+                      width: MediaQuery.of(context).size.width - 20,
                       height: MediaQuery.of(context).size.height * 0.3,
-                      child: AutoSizeText(
-                        state.joke.replaceAll("&quot;", "\""),
-                        textAlign: TextAlign.center,
-                        style: GoogleFonts.poppins(
-                          textStyle: TextStyle(
-                            color: HomeColors.textWhiteColor,
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
+                      child: Center(
+                        child: AutoSizeText(
+                          state.joke.replaceAll("&quot;", "\""),
+                          textAlign: TextAlign.center,
+                          style: GoogleFonts.poppins(
+                            textStyle: const TextStyle(
+                              color: HomeColors.textWhiteColor,
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
                     ),
-                    ElevatedButton(
-                      onPressed: () => BlocProvider.of<HomeBloc>(context).add(
-                        LoadApiEvent(),
-                      ),
-                      child: const Text("Next one"),
+                    const SizedBox(
+                      height: 20,
                     ),
-                    ElevatedButton(
-                      onPressed: () => Navigator.pop(context),
-                      child: const Text("Return"),
-                    )
+                    SizedBox(
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          padding: MaterialStateProperty.all(
+                              const EdgeInsets.all(20)),
+                          minimumSize: MaterialStateProperty.all(Size(
+                              MediaQuery.of(context).size.width * 0.33, 40)),
+                          side: MaterialStateProperty.all(
+                            const BorderSide(
+                              color: HomeColors.textWhiteColor,
+                              width: 5,
+                            ),
+                          ),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                          backgroundColor: MaterialStateProperty.all(
+                              HomeColors.backgroundColor),
+                          overlayColor:
+                              MaterialStateProperty.all(HomeColors.accentColor),
+                        ),
+                        onPressed: () => BlocProvider.of<HomeBloc>(context).add(
+                          LoadApiEvent(),
+                        ),
+                        child: const TitleScreenText(
+                          content: 'Next one',
+                          size: 25.0,
+                        ),
+                      ),
+                    ),
+                    const SizedBox(
+                      height: 20,
+                    ),
+                    SizedBox(
+                      child: ElevatedButton(
+                        style: ButtonStyle(
+                          padding: MaterialStateProperty.all(
+                              const EdgeInsets.all(20)),
+                          minimumSize: MaterialStateProperty.all(Size(
+                              MediaQuery.of(context).size.width * 0.33, 40)),
+                          side: MaterialStateProperty.all(
+                            const BorderSide(
+                              color: HomeColors.textWhiteColor,
+                              width: 5,
+                            ),
+                          ),
+                          shape: MaterialStateProperty.all(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                          ),
+                          backgroundColor: MaterialStateProperty.all(
+                              HomeColors.backgroundColor),
+                          overlayColor:
+                              MaterialStateProperty.all(HomeColors.accentColor),
+                        ),
+                        onPressed: () => Navigator.pop(context),
+                        child: const TitleScreenText(
+                          content: 'Return',
+                          size: 25.0,
+                        ),
+                      ),
+                    ),
                   ],
                 ),
               );
