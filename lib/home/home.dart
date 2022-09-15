@@ -14,23 +14,18 @@ class HomePage extends StatelessWidget {
         RepositoryProvider.of<ChuckJokeService>(context),
       ),
       child: Scaffold(
+        backgroundColor: HomeColors.backgroundColor,
         body: BlocBuilder<HomeBloc, HomeState>(
           builder: (context, state) {
             if (state is HomeLoadingState) {
-              return Container(
-                decoration: const BoxDecoration(
-                  color: HomeColors.backgroundColor,
-                ),
-                child: const Center(
-                  child: CircularProgressIndicator(),
-                ),
+              return const Center(
+                child: CircularProgressIndicator(),
               );
             }
             if (state is HomeLoadedState) {
-              return Container(
-                decoration:
-                    const BoxDecoration(color: HomeColors.backgroundColor),
+              return Center(
                 child: Column(
+                  mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     Text(state.joke),
                     Text(state.id.toString()),
