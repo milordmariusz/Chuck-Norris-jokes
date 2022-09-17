@@ -1,16 +1,20 @@
-# chuck_norris_jokes_api
+# Chuck Norris Jokes
+App displays jokes about Chuck Norris.
 
-A new Flutter project.
+# API
+- [ICNDb](http://www.icndb.com/api/)
 
-## Getting Started
+# Used Packages:
+- [flutter_bloc](https://pub.dev/packages/flutter_bloc)
+- [equatable](https://pub.dev/packages/equatable)
+- [http](https://pub.dev/packages/http)
+- [connectivity_plus](https://pub.dev/packages/connectivity_plus)
+- [auto_size_text](https://pub.dev/packages/auto_size_text)
+- [google_fonts](https://pub.dev/packages/google_fonts)
+- [animated_background](https://pub.dev/packages/animated_background)
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Screenshots
+<p float="left">
+  <img src="assets/readme_screenshots/ss1.png" width="250" />
+  <img src="assets/readme_screenshots/ss2.png" width="250" />
+</p>
